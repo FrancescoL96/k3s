@@ -1,0 +1,25 @@
+apiVersion: kubescheduler.config.k8s.io/v1beta2
+kind: KubeSchedulerConfiguration
+clientConnection:
+  kubeconfig: /etc/rancher/k3s/k3s.yaml
+profiles:
+  - schedulerName: default-scheduler
+    plugins:
+      queueSort:
+        enabled:
+        - name: RealTime
+        disabled:
+        - name: PrioritySort
+  - schedulerName: RT-scheduler
+    plugins:
+      queueSort:
+        enabled:
+        - name: RealTime
+        disabled:
+        - name: PrioritySort
+      filter:
+        enabled:
+        - name: RealTime
+      score:
+        enabled:
+        - name: RealTime
