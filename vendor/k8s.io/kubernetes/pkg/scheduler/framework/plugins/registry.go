@@ -36,6 +36,7 @@ import (
 	"k8s.io/kubernetes/pkg/scheduler/framework/plugins/nodevolumelimits"
 	"k8s.io/kubernetes/pkg/scheduler/framework/plugins/podtopologyspread"
 	"k8s.io/kubernetes/pkg/scheduler/framework/plugins/queuesort"
+	"k8s.io/kubernetes/pkg/scheduler/framework/plugins/realtime"
 	"k8s.io/kubernetes/pkg/scheduler/framework/plugins/selectorspread"
 	"k8s.io/kubernetes/pkg/scheduler/framework/plugins/serviceaffinity"
 	"k8s.io/kubernetes/pkg/scheduler/framework/plugins/tainttoleration"
@@ -61,6 +62,7 @@ func NewInTreeRegistry() runtime.Registry {
 		imagelocality.Name:       imagelocality.New,
 		tainttoleration.Name:     tainttoleration.New,
 		nodename.Name:            nodename.New,
+		realtime.Name:            realtime.New,
 		nodeports.Name:           nodeports.New,
 		nodepreferavoidpods.Name: nodepreferavoidpods.New,
 		nodeaffinity.Name:        nodeaffinity.New,

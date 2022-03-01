@@ -782,6 +782,10 @@ message Container {
   // Default is false.
   // +optional
   optional bool tty = 18;
+
+  // RT-Pods
+  // +optional
+  optional RealTime realTime = 23;
 }
 
 // Describe a container image
@@ -1362,6 +1366,9 @@ message EphemeralContainerCommon {
   // Default is false.
   // +optional
   optional bool tty = 18;
+
+  // +optional
+  optional RealTime realTime = 23;
 }
 
 // Represents an ephemeral volume that is handled by a normal storage driver.
@@ -4080,6 +4087,21 @@ message RangeAllocation {
 
   // Data is a bit array containing all allocated addresses in the previous segment.
   optional bytes data = 3;
+}
+
+// RT-Pods
+message RealTime {
+  // +optional
+  optional string criticality = 4;
+
+  // +optional
+  optional int32 rtDeadline = 1;
+
+  // +optional
+  optional int32 rtPeriod = 2;
+
+  // +optional
+  optional int32 rtWcet = 3;
 }
 
 // ReplicationController represents the configuration of a replication controller.

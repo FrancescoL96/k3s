@@ -88,6 +88,7 @@ var allowedEphemeralContainerFields = map[string]bool{
 	"Stdin":                    true,
 	"StdinOnce":                true,
 	"TTY":                      true,
+	"RealTime":                 true,
 }
 
 // ValidateHasLabel requires that metav1.ObjectMeta has a Label with key and expectedValue

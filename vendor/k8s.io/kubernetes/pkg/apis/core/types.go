@@ -2189,6 +2189,20 @@ type Container struct {
 	StdinOnce bool
 	// +optional
 	TTY bool
+
+	// +optional
+	RealTime RealTime
+}
+
+type RealTime struct {
+	// +optional
+	Criticality string
+	// +optional
+	RTDeadline int32
+	// +optional
+	RTPeriod int32
+	// +optional
+	RTWcet int32
 }
 
 // Handler defines a specific action that should be taken
@@ -3174,6 +3188,8 @@ type EphemeralContainerCommon struct {
 	StdinOnce bool
 	// +optional
 	TTY bool
+	// +optional
+	RealTime RealTime
 }
 
 // EphemeralContainerCommon converts to Container. All fields must be kept in sync between

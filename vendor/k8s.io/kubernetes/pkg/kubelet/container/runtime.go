@@ -284,6 +284,11 @@ type Container struct {
 	Hash uint64
 	// State is the state of the container.
 	State State
+
+	// RT-Pods
+	RTDeadline int32
+	RTPeriod   int32
+	RTWcet     int32
 }
 
 // PodStatus represents the status of the pod and its containers.

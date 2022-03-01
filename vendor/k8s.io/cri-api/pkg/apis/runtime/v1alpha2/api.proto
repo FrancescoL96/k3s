@@ -849,6 +849,15 @@ message ContainerConfig {
     LinuxContainerConfig linux = 15;
     // Configuration specific to Windows containers.
     WindowsContainerConfig windows = 16;
+    
+	RealTime realTime = 23;
+}
+
+message RealTime {
+	string Criticality = 1;
+    int32 RTDeadline = 2;
+    int32 RTPeriod = 3;
+    int32 RTWcet = 4;
 }
 
 message CreateContainerRequest {

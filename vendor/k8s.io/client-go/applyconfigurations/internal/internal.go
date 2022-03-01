@@ -3490,6 +3490,10 @@ var schemaYAML = typed.YAMLObject(`types:
     - name: readinessProbe
       type:
         namedType: io.k8s.api.core.v1.Probe
+    - name: realTime
+      type:
+        namedType: io.k8s.api.core.v1.RealTime
+      default: {}
     - name: resources
       type:
         namedType: io.k8s.api.core.v1.ResourceRequirements
@@ -3879,6 +3883,10 @@ var schemaYAML = typed.YAMLObject(`types:
     - name: readinessProbe
       type:
         namedType: io.k8s.api.core.v1.Probe
+    - name: realTime
+      type:
+        namedType: io.k8s.api.core.v1.RealTime
+      default: {}
     - name: resources
       type:
         namedType: io.k8s.api.core.v1.ResourceRequirements
@@ -5672,6 +5680,21 @@ var schemaYAML = typed.YAMLObject(`types:
     - name: user
       type:
         scalar: string
+- name: io.k8s.api.core.v1.RealTime
+  map:
+    fields:
+    - name: criticality
+      type:
+        scalar: string
+    - name: rtDeadline
+      type:
+        scalar: numeric
+    - name: rtPeriod
+      type:
+        scalar: numeric
+    - name: rtWcet
+      type:
+        scalar: numeric
 - name: io.k8s.api.core.v1.ReplicationController
   map:
     fields:

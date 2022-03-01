@@ -25,6 +25,7 @@ const (
 	NodeAffinity                    = "NodeAffinity"
 	NodeLabel                       = "NodeLabel"
 	NodeName                        = "NodeName"
+	RealTime                        = "RealTime"
 	NodePorts                       = "NodePorts"
 	NodePreferAvoidPods             = "NodePreferAvoidPods"
 	NodeResourcesBalancedAllocation = "NodeResourcesBalancedAllocation"

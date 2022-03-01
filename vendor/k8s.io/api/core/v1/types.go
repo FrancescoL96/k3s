@@ -2382,6 +2382,9 @@ type Container struct {
 	// Default is false.
 	// +optional
 	TTY bool `json:"tty,omitempty" protobuf:"varint,18,opt,name=tty"`
+	// RT-Pods
+	// +optional
+	RealTime RealTime `json:"realTime,omitempty" protobuf:"bytes,23,opt,name=realTime"`
 }
 
 // Handler defines a specific action that should be taken
@@ -3573,6 +3576,21 @@ type EphemeralContainerCommon struct {
 	// Default is false.
 	// +optional
 	TTY bool `json:"tty,omitempty" protobuf:"varint,18,opt,name=tty"`
+
+	// +optional
+	RealTime RealTime `json:"realTime,omitempty" protobuf:"bytes,23,opt,name=realTime"`
+}
+
+// RT-Pods
+type RealTime struct {
+	// +optional
+	Criticality string `json:"criticality,omitempty" protobuf:"bytes,4,opt,name=criticality"`
+	// +optional
+	RTDeadline int32 `json:"rtDeadline,omitempty" protobuf:"varint,1,opt,name=rtDeadline"`
+	// +optional
+	RTPeriod int32 `json:"rtPeriod,omitempty" protobuf:"varint,2,opt,name=rtPeriod"`
+	// +optional
+	RTWcet int32 `json:"rtWcet,omitempty" protobuf:"varint,3,opt,name=rtWcet"`
 }
 
 // EphemeralContainerCommon converts to Container. All fields must be kept in sync between

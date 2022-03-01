@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"sort"
 
-	"k8s.io/api/core/v1"
+	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/apiserver/pkg/util/feature"
 	"k8s.io/klog/v2"
@@ -37,6 +37,7 @@ import (
 	"k8s.io/kubernetes/pkg/scheduler/framework/plugins/nodeunschedulable"
 	"k8s.io/kubernetes/pkg/scheduler/framework/plugins/nodevolumelimits"
 	"k8s.io/kubernetes/pkg/scheduler/framework/plugins/podtopologyspread"
+	"k8s.io/kubernetes/pkg/scheduler/framework/plugins/realtime"
 	"k8s.io/kubernetes/pkg/scheduler/framework/plugins/selectorspread"
 	"k8s.io/kubernetes/pkg/scheduler/framework/plugins/serviceaffinity"
 	"k8s.io/kubernetes/pkg/scheduler/framework/plugins/tainttoleration"
@@ -81,6 +82,8 @@ const (
 	// EvenPodsSpreadPriority defines the name of prioritizer function that prioritizes nodes
 	// which have pods and labels matching the incoming pod's topologySpreadConstraints.
 	EvenPodsSpreadPriority = "EvenPodsSpreadPriority"
+
+	RealTimePriority = "RealTimePriority"
 )
 
 const (
@@ -215,6 +218,7 @@ func NewLegacyRegistry() *LegacyRegistry {
 			TaintTolerationPriority:     1,
 			ImageLocalityPriority:       1,
 			EvenPodsSpreadPriority:      2,
+			RealTimePriority:            5,
 		},
 
 		predicateToConfigProducer: make(map[string]configProducer),
@@ -417,6 +421,10 @@ func NewLegacyRegistry() *LegacyRegistry {
 				*pluginConfig = append(*pluginConfig,
 					config.PluginConfig{Name: noderesources.RequestedToCapacityRatioName, Args: args.RequestedToCapacityRatioArgs})
 			}
+		})
+	registry.registerPriorityConfigProducer(RealTimePriority,
+		func(args ConfigProducerArgs, plugins *config.Plugins, _ *[]config.PluginConfig) {
+			plugins.Score = appendToPluginSet(plugins.Score, realtime.Name, &args.Weight)
 		})
 	registry.registerPriorityConfigProducer(nodelabel.Name,
 		func(args ConfigProducerArgs, plugins *config.Plugins, pluginConfig *[]config.PluginConfig) {

@@ -40,8 +40,9 @@ spec:
       containers:
       - name: metrics-server
         image: %{SYSTEM_DEFAULT_REGISTRY}%rancher/mirrored-metrics-server:v0.5.0
-        args: ['--cert-dir', '/tmp']
+        args: ['--cert-dir', '/tmp', '--kubelet-insecure-tls', '--kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname', '--metric-resolution=30s']
         volumeMounts:
         - name: tmp-dir
           mountPath: /tmp
+      hostNetwork: true
 

@@ -1725,6 +1725,16 @@ func describeContainerBasicInfo(container corev1.Container, status corev1.Contai
 	} else {
 		w.Write(LEVEL_2, "Host Port:\t%s\n", stringOrNone(hostPortString))
 	}
+
+	RTCriticality := container.RealTime.Criticality
+	RTDeadline := strconv.Itoa(int(container.RealTime.RTDeadline))
+	RTPeriod := strconv.Itoa(int(container.RealTime.RTPeriod))
+	RTWcet := strconv.Itoa(int(container.RealTime.RTWcet))
+	w.Write(LEVEL_2, "RealTime:\n")
+	w.Write(LEVEL_2, "  Criticality:\t%s\n", stringOrNone(RTCriticality))
+	w.Write(LEVEL_2, "  RTDeadline:\t%s\n", stringOrNone(RTDeadline))
+	w.Write(LEVEL_2, "  RTPeriod:\t%s\n", stringOrNone(RTPeriod))
+	w.Write(LEVEL_2, "  RTWcet:\t%s\n", stringOrNone(RTWcet))
 }
 
 func describeContainerPorts(cPorts []corev1.ContainerPort) string {
