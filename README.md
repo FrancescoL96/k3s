@@ -1,3 +1,53 @@
+RT-K3S
+---
+This repository containes the Real-Time K3S extension that introduces Real-Time variables in the container specifications, integrates an admission test and several scheduling plugins to consider Real-Time constrains during the scheduling phase.
+
+Usage
+--
+Deployments have additional fields for Real-Time in the container specifications fields. A modified NGINX deployment with the extra fields:
+
+<pre lang="yaml">
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      schedulerName: RT-scheduler   # New scheduler 
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+        realTime:                   # New RT fields
+          criticality: A
+          rtDeadline: 100
+          rtPeriod: 100
+          rtWcet: 95
+      tolerations:
+      - key: "RealTime"
+        operator: "Equal"
+        value: "RT"
+        effect: "NoSchedule"
+</pre>
+
+&nbsp;
+&nbsp;
+&nbsp;
+
+Original Readme for the k3s.io/k3s repository follows:
+-----------------------------------------------
+
 K3s - Lightweight Kubernetes
 ===============================================
 
